@@ -33,6 +33,7 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
+	// Resolve
 	public String acronym(String phrase) {
 		String result = "";
 		boolean v = true;
@@ -57,6 +58,7 @@ public class EvaluationService {
 	 * different lengths.
 	 *
 	 */
+	// Double Check
 	static class Triangle {
 		private double sideOne;
 		private double sideTwo;
@@ -142,6 +144,7 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+	// Reword
 	public int getScrabbleScore(String string) {
 		int result = 0;
 		String col = "a,e,i,o,u,l,n,r,s,t,A, E, I, O, U, L, N, R, S, T";
@@ -167,9 +170,7 @@ public class EvaluationService {
 				result = result + 8;
 			} else if (foosball.indexOf(x) >= 0) {
 				result = result + 10;
-			} else {
-				result = result;
-			}
+			} 
 		}
 		return result;
 	}
@@ -205,18 +206,17 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	// finish this
+
 	public String cleanPhoneNumber(String string) {
 		String finalProd = null;
 		String strNew = string.replaceAll("[() -.]", "");
-			if (strNew.length() == 10) {
-				finalProd = strNew;
-			}else {
-				throw new IllegalArgumentException();
-			}
-		return strNew;
+		if (strNew.length() == 10) {
+			finalProd = strNew;
+		} else {
+			throw new IllegalArgumentException();
+		}
+		return finalProd;
 	}
-	// finish this
 
 	/**
 	 * 6. Given a phrase, count the occurrences of each word in that phrase.
@@ -227,16 +227,14 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+	// Reword
 	public Map<String, Integer> wordCount(String string) {
 		// creates a new HashMap
 		Map<String, Integer> hm = new HashMap<String, Integer>();
 		// creates an empty array
 		String[] tempArray;
-		// sets the parameters to separates the string
-		String delimiter = " ";
 		// splits the string into the array
 		tempArray = string.split("\\W+");
-		int x = 1;
 		for (int i = 0; i < tempArray.length; i++) {
 			System.out.println(i);
 			System.out.println(hm);
@@ -286,7 +284,7 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	// Skip for now
+
 	static class BinarySearch<T> {
 		private List<T> sortedList;
 
@@ -309,7 +307,6 @@ public class EvaluationService {
 		}
 
 	}
-	// Skip for now
 
 	/**
 	 * 8. Implement a program that translates from English to Pig Latin.
@@ -348,6 +345,7 @@ public class EvaluationService {
 	 * @param input
 	 * @return
 	 */
+	// Rename
 	public boolean isArmstrongNumber(int input) {
 		String x = Integer.toString(input); // "10" <= 10
 		System.out.println(x);
@@ -491,6 +489,7 @@ public class EvaluationService {
 	 * rxpyi ldmul cqfnk hlevi gsvoz abwlt gives thequickbrownfoxjumpsoverthelazydog
 	 *
 	 */
+	// Finish
 	static class AtbashCipher {
 
 		/**
@@ -657,8 +656,14 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		//read through the given, if there are numbers, go to the next step
+		//if there is a character case, immediate invalid
+		 try {
+		        int d = Integer.parseInt(string);
+		    } catch (NumberFormatException | NullPointerException nfe) {
+		        return false;
+		    }
+		return true;
 	}
 
 	/**
@@ -689,8 +694,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		String denim = "What,is,by";
+		String test = string.replace("What ", "").replace("is ", "").replace("by ", "").replace("?", "");
+		String[] newTest = test.split(" ");
+		int ans = 0;
+		for (int i = 0; i < newTest.length; i++) {
+			if (newTest[i].matches("plus") == true) {
+				ans = Integer.parseInt(newTest[0]) + Integer.parseInt(newTest[2]);
+			} else if (newTest[i].matches("minus") == true) {
+				ans = Integer.parseInt(newTest[0]) - Integer.parseInt(newTest[2]);
+			} else if (newTest[i].matches("multiplied") == true) {
+				ans = Integer.parseInt(newTest[0]) * Integer.parseInt(newTest[2]);
+			} else if (newTest[i].matches("divided") == true) {
+				ans = Integer.parseInt(newTest[0]) / Integer.parseInt(newTest[2]);
+			}
+		}
+
+		return ans;
 	}
 
 }
