@@ -207,19 +207,13 @@ public class EvaluationService {
 	 */
 	// finish this
 	public String cleanPhoneNumber(String string) {
+		String finalProd = null;
 		String strNew = string.replaceAll("[() -.]", "");
-		for (int i = 0; i < strNew.length(); i++) {
-			if (strNew.length() > 10) {
-				strNew = strNew.substring(strNew.length() - 10);
-				System.out.println(strNew.length());
-				System.out.println(strNew.charAt(0));
-				if (strNew.indexOf(0) == 10) {
-					throw new IllegalArgumentException();
-				} else {
-					throw new IllegalArgumentException();
-				}
+			if (strNew.length() == 10) {
+				finalProd = strNew;
+			}else {
+				throw new IllegalArgumentException();
 			}
-		}
 		return strNew;
 	}
 	// finish this
@@ -234,28 +228,29 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		//creates a new HashMap
+		// creates a new HashMap
 		Map<String, Integer> hm = new HashMap<String, Integer>();
-		//creates an empty array
+		// creates an empty array
 		String[] tempArray;
-		//sets the parameters to separates the string
+		// sets the parameters to separates the string
 		String delimiter = " ";
-		//splits the string into the array
+		// splits the string into the array
 		tempArray = string.split("\\W+");
 		int x = 1;
-		for(int i =0; i<tempArray.length;i++) {
-				System.out.println(i);
-				System.out.println(hm);
-				if(hm.containsKey(tempArray[i])==false) {
-					hm.put(tempArray[i], 1);
-				} else{
-					int key= hm.get(tempArray[i]);
-					key++;
-					hm.put(tempArray[i], key);
-				}
+		for (int i = 0; i < tempArray.length; i++) {
+			System.out.println(i);
+			System.out.println(hm);
+			if (hm.containsKey(tempArray[i]) == false) {
+				hm.put(tempArray[i], 1);
+			} else {
+				int key = hm.get(tempArray[i]);
+				key++;
+				hm.put(tempArray[i], key);
 			}
+		}
 		return hm;
 	}
+
 	/**
 	 * 7. Implement a binary search algorithm.
 	 * 
@@ -609,18 +604,18 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		//Given the set with x length and y values{y1...}
+		// Given the set with x length and y values{y1...}
 		int[] arr;
 		int bull = 0;
 		System.out.println(set.length);
-		for(int j =0; j<set.length;j++) {
-			if(set.length >= 1) {
-				for(int k =0;k<i;k++) {
+		for (int j = 0; j < set.length; j++) {
+			if (set.length >= 1) {
+				for (int k = 0; k < i; k++) {
 //					if()
 				}
 			}
 		}
-		//Given parameter i
+		// Given parameter i
 		System.out.println(i);
 		return 0;
 	}
