@@ -1,12 +1,18 @@
 package com.revature.eval.java.core;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -126,7 +132,6 @@ public class EvaluationService {
 				return false;
 			}
 		}
-
 	}
 
 	/**
@@ -144,33 +149,33 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	// Reword
+
 	public int getScrabbleScore(String string) {
 		int result = 0;
-		String col = "a,e,i,o,u,l,n,r,s,t,A, E, I, O, U, L, N, R, S, T";
-		String le = "d,g,D,G";
-		String ge = "b,c,m,p,B,C,M,P";
-		String var = "f,h,c,w,y,F,H,C,W,Y";
-		String si = "k,K";
-		String ty = "j,x,J,X";
-		String foosball = "q,z,Q,Z";
+		String plusOne = "a,e,i,o,u,l,n,r,s,t,A, E, I, O, U, L, N, R, S, T";
+		String plusTwo = "d,g,D,G";
+		String plusThree = "b,c,m,p,B,C,M,P";
+		String plusFour = "f,h,c,w,y,F,H,C,W,Y";
+		String plusFive = "k,K";
+		String plusEight = "j,x,J,X";
+		String plusTen = "q,z,Q,Z";
 		for (int i = 0; i < string.length(); i++) {
 			String x = String.valueOf(string.charAt(i));
-			if (col.indexOf(x) >= 0) {
+			if (plusOne.indexOf(x) >= 0) {
 				result = result + 1;
-			} else if (le.indexOf(x) >= 0) {
+			} else if (plusTwo.indexOf(x) >= 0) {
 				result = result + 2;
-			} else if (ge.indexOf(x) >= 0) {
+			} else if (plusThree.indexOf(x) >= 0) {
 				result = result + 3;
-			} else if (var.indexOf(x) >= 0) {
+			} else if (plusFour.indexOf(x) >= 0) {
 				result = result + 4;
-			} else if (si.indexOf(x) >= 0) {
+			} else if (plusFive.indexOf(x) >= 0) {
 				result = result + 5;
-			} else if (ty.indexOf(x) >= 0) {
+			} else if (plusEight.indexOf(x) >= 0) {
 				result = result + 8;
-			} else if (foosball.indexOf(x) >= 0) {
+			} else if (plusTen.indexOf(x) >= 0) {
 				result = result + 10;
-			} 
+			}
 		}
 		return result;
 	}
@@ -209,9 +214,9 @@ public class EvaluationService {
 
 	public String cleanPhoneNumber(String string) {
 		String finalProd = null;
-		String strNew = string.replaceAll("[() -.]", "");
-		if (strNew.length() == 10) {
-			finalProd = strNew;
+		String cleanStr = string.replaceAll("[() -.]", "");
+		if (cleanStr.length() == 10) {
+			finalProd = cleanStr;
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -227,26 +232,24 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	// Reword
+
 	public Map<String, Integer> wordCount(String string) {
 		// creates a new HashMap
-		Map<String, Integer> hm = new HashMap<String, Integer>();
+		Map<String, Integer> mainHash = new HashMap<String, Integer>();
 		// creates an empty array
 		String[] tempArray;
 		// splits the string into the array
 		tempArray = string.split("\\W+");
 		for (int i = 0; i < tempArray.length; i++) {
-			System.out.println(i);
-			System.out.println(hm);
-			if (hm.containsKey(tempArray[i]) == false) {
-				hm.put(tempArray[i], 1);
+			if (mainHash.containsKey(tempArray[i]) == false) {
+				mainHash.put(tempArray[i], 1);
 			} else {
-				int key = hm.get(tempArray[i]);
+				int key = mainHash.get(tempArray[i]);
 				key++;
-				hm.put(tempArray[i], key);
+				mainHash.put(tempArray[i], key);
 			}
 		}
-		return hm;
+		return mainHash;
 	}
 
 	/**
@@ -285,7 +288,7 @@ public class EvaluationService {
 	 * 
 	 */
 
-	static class BinarySearch<T> {
+	static class BinarySearch<T extends Comparable<T>> {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
@@ -345,36 +348,31 @@ public class EvaluationService {
 	 * @param input
 	 * @return
 	 */
-	// Rename
+
 	public boolean isArmstrongNumber(int input) {
-		String x = Integer.toString(input); // "10" <= 10
-		System.out.println(x);
-		String[] bar = x.split(""); // Splits number into a string array[1,0] <=
-		System.out.println(bar[2]);
-		boolean v = true;
+		String strOfInput = Integer.toString(input); // "10" <= 10
+		String[] strArrOfInput = strOfInput.split(""); // Splits number into a string array[1,0] <=
+		boolean armStNum = true;
 		int armStrong = 0;
-		for (int i = 0; i < bar.length; i++) {
-			if (bar.length > 1) {
-				for (int j = 0; j < bar.length; j++) {
-					Double a = Double.valueOf(bar[j]);
-					System.out.println(a);
-					Double b = (double) bar.length;
-					System.out.println(b);
+		for (int i = 0; i < strArrOfInput.length; i++) {
+			if (strArrOfInput.length > 1) {
+				for (int j = 0; j < strArrOfInput.length; j++) {
+					Double a = Double.valueOf(strArrOfInput[j]);
+					Double b = (double) strArrOfInput.length;
 					armStrong = armStrong + ((int) Math.pow(a, b));
-					System.out.println(armStrong);
 				}
 				if ((int) armStrong == input) {
-					v = true;
-					return v;
+					armStNum = true;
+					return armStNum;
 				} else {
-					v = false;
+					armStNum = false;
 				}
 
 			} else {
-				v = true;
+				armStNum = true;
 			}
 		}
-		return v;
+		return armStNum;
 	}
 
 	/**
@@ -569,8 +567,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		Map<String, Integer> mainHash = new HashMap<String, Integer>();
+		String[] strArray;
+		String newStr = string.replaceAll("\\s+", "");
+		strArray = newStr.split("");
+		boolean isPan=true;
+		for (int i = 0; i < strArray.length; i++) {
+			if (mainHash.containsKey(strArray[i]) == false) {
+				mainHash.put(strArray[i], 1);
+			} 
+		}
+		if(mainHash.size()==26) {
+			isPan=true;
+		}else {
+			isPan=false;
+		}
+		return isPan;
 	}
 
 	/**
@@ -581,13 +593,16 @@ public class EvaluationService {
 	 * @param given
 	 * @return
 	 */
-	// skip for now
-	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	// Finish second part
+	public LocalDateTime getGigasecondDate(Temporal given) {
+		if (given instanceof LocalDate) {
+			LocalDateTime ldt = LocalDateTime.of((LocalDate) given, LocalTime.MIN);
+			return ldt.plusSeconds(1000000000);
+		} else {
+			return ((LocalDateTime) given).plusSeconds(1000000000);
+		}
 	}
 
-	// skip for now
 	// ChronoUnits
 	/**
 	 * 18. Given a number, find the sum of all the unique multiples of particular
@@ -603,22 +618,29 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// Given the set with x length and y values{y1...}
-		int[] arr;
-		int bull = 0;
-		System.out.println(set.length);
-		for (int j = 0; j < set.length; j++) {
-			if (set.length >= 1) {
-				for (int k = 0; k < i; k++) {
-//					if()
+		// Given the int [] set with x length given values{y1...}
+		// As well as the parameter i
+		ArrayList<Integer> numberSet = new ArrayList<Integer>();
+		int sum = 0;
+		for (int j = 0; j < i; j++) {
+			numberSet.add(j);
+		}
+		Set<Integer> uniqueMulti = new HashSet<Integer>();
+		for (int k = 0; k < numberSet.size(); k++) {
+			for (int l = 0; l < set.length; l++) {
+				if (k % set[l] == 0) {
+					uniqueMulti.add(k);
 				}
 			}
 		}
-		// Given parameter i
-		System.out.println(i);
-		return 0;
+		Object[] sumOfAll = (Object[]) uniqueMulti.toArray();
+		for (int m = 0; m < sumOfAll.length; m++) {
+			sum = sum + (int) sumOfAll[m];
+		}
+		return sum;
 	}
 
+	// Rename and explain later
 	/**
 	 * 19. Given a number determine whether or not it is valid per the Luhn formula.
 	 * 
@@ -656,14 +678,43 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		//read through the given, if there are numbers, go to the next step
-		//if there is a character case, immediate invalid
-		 try {
-		        int d = Integer.parseInt(string);
-		    } catch (NumberFormatException | NullPointerException nfe) {
-		        return false;
-		    }
-		return true;
+		// read through the given, if there are numbers, go to the next step
+		// if there is a character case, immediate invalid
+		boolean validId = true;
+		String strReformat = string.replace(" ", "");
+		String[] strArr = strReformat.split("");
+		int[] numbers = new int[strArr.length];
+		int[] newNums = new int[numbers.length];
+		for (int z = 0; z < strArr.length; z++) {
+			try {
+				numbers[z] = Integer.parseInt(strArr[z]);
+			} catch (NumberFormatException | NullPointerException nfe) {
+			}
+		}
+		for (int y = numbers.length - 2, w = 0; y >= 0; y -= 2, w++) {
+			newNums[w] = numbers[y];
+		}
+		for (int x = 0; x < newNums.length; x++) {
+			newNums[x] = newNums[x] * 2;
+			if (newNums[x] > 9) {
+				newNums[x] = newNums[x] - 9;
+			}
+		}
+		for (int q = numbers.length - 2, r = 0; q >= 0; q -= 2, r++) {
+			numbers[q] = newNums[r];
+		}
+		int sum = 0;
+
+		for (int s : numbers)
+			sum += s;
+		if (sum % 10 == 0) {
+			validId = true;
+		} else {
+			validId = false;
+		}
+		return validId;
+		// hugely optimizable and needs to handle having 1 as the initial digit as a
+		// edge case
 	}
 
 	/**
@@ -694,9 +745,8 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		String denim = "What,is,by";
-		String test = string.replace("What ", "").replace("is ", "").replace("by ", "").replace("?", "");
-		String[] newTest = test.split(" ");
+		String strFilter = string.replace("What ", "").replace("is ", "").replace("by ", "").replace("?", "");
+		String[] newTest = strFilter.split(" ");
 		int ans = 0;
 		for (int i = 0; i < newTest.length; i++) {
 			if (newTest[i].matches("plus") == true) {
@@ -709,7 +759,6 @@ public class EvaluationService {
 				ans = Integer.parseInt(newTest[0]) / Integer.parseInt(newTest[2]);
 			}
 		}
-
 		return ans;
 	}
 
